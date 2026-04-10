@@ -33,7 +33,10 @@ export default function RevealProvider() {
       elements.forEach((el) => el.classList.add("is-visible"));
     }, 1500);
 
-    return () => observer.disconnect();
+    return () => {
+      window.clearTimeout(fallback);
+      observer.disconnect();
+    };
   }, [pathname]);
 
   return null;

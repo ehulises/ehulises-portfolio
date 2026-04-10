@@ -1,168 +1,164 @@
+import Link from "next/link";
+
+const academicBackground = [
+  {
+    school: "Northwestern University",
+    credential: "B.S. Computer Science",
+    details: "Evanston, IL · 2025 · GPA 3.6/4",
+    tags: ["Systems", "AI/ML", "Engineering"],
+    tone: "tinted",
+  },
+  {
+    school: "Houston Community College",
+    credential: "A.S. Science",
+    details: "Houston, TX · 2021 · Highest Honors · GPA 3.99/4",
+    tags: ["STEM", "Honors"],
+    tone: "sky",
+  },
+  {
+    school: "North Houston Early College HS",
+    credential: "Dual Enrollment",
+    details: "Houston, TX · 2021 · Rank 1 · GPA 4.76/4",
+    tags: ["Leadership", "Valedictorian"],
+    tone: "sage",
+  },
+];
+
+const leadershipRoles = [
+  {
+    org: "Society of Professional Hispanic Engineers",
+    title: "Secretary, Mentor",
+    meta: "Sep 2021 - Jun 2025",
+    bullets: [
+      "Led mentorship for 8 underrepresented students into internships at top firms.",
+      "Iterated on resume workshops and interview prep based on mentee feedback.",
+    ],
+  },
+  {
+    org: "Phi Gamma Delta",
+    title: "President, Treasurer",
+    meta: "Mar 2022 - Jun 2025",
+    bullets: [
+      "Doubled chapter revenue by redesigning budget strategy and fundraising.",
+      "Led inclusive community building across 30+ represented backgrounds.",
+    ],
+  },
+];
+
+const notableMentions = [
+  "Valedictorian; highest GPA in high school history.",
+  "Highest SAT and ACT scores in school history.",
+  "Most selective university admission in high school history.",
+  "First-generation college student.",
+  "Completed an associate's degree before high school diploma.",
+];
+
 export default function Education() {
   return (
     <section className="section fade-in">
       <div className="container">
-        <div className="breadcrumbs">Home / Education</div>
-        <h1 className="section-title" style={{ marginTop: "24px" }}>
-          Education & Leadership
-        </h1>
-        <div className="grid-2" style={{ marginTop: "32px" }}>
-          <div className="card reveal">
-            <div className="kicker">Northwestern University</div>
-            <h3 className="section-title">B.S. Computer Science</h3>
-            <p className="hero-subtitle">Evanston, IL · 2025 · GPA 3.6/4</p>
-            <div className="tag-row">
-              <span className="tag">Systems</span>
-              <span className="tag">AI/ML</span>
-              <span className="tag">Engineering</span>
-            </div>
-          </div>
-          <div className="card reveal">
-            <div className="kicker">Houston Community College</div>
-            <h3 className="section-title">A.S. Science</h3>
-            <p className="hero-subtitle">Houston, TX · 2021 · Highest Honors · GPA 3.99/4</p>
-            <div className="tag-row">
-              <span className="tag">STEM</span>
-              <span className="tag">Honors</span>
-            </div>
-          </div>
-          <div className="card reveal">
-            <div className="kicker">North Houston Early College HS</div>
-            <h3 className="section-title">Dual Enrollment</h3>
-            <p className="hero-subtitle">Houston, TX · 2021 · Rank 1 · GPA 4.76/4</p>
-            <div className="tag-row">
-              <span className="tag">Leadership</span>
-              <span className="tag">Valedictorian</span>
-            </div>
-          </div>
-        </div>
-
-        <div className="section-tight">
-          <div className="kicker">Extracurriculars</div>
-          <div className="card reveal">
-            <div className="work-row">
-              <div>
-                <div className="section-title">Society of Professional Hispanic Engineers</div>
-                <div className="work-meta">Secretary, Mentor · Sep 2021 – Jun 2025</div>
-              </div>
-              <ul className="inline-list">
-                <li>Led mentorship for 8 underrepresented students into internships at top firms.</li>
-                <li>Iterated on resume workshops and interview prep based on mentee feedback.</li>
-              </ul>
-            </div>
-            <div className="work-row">
-              <div>
-                <div className="section-title">Phi Gamma Delta</div>
-                <div className="work-meta">President, Treasurer · Mar 2022 – Jun 2025</div>
-              </div>
-              <ul className="inline-list">
-                <li>Doubled chapter revenue by redesigning budget strategy and fundraising.</li>
-                <li>Led inclusive community building across 30+ represented backgrounds.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div className="section-tight">
-          <div className="kicker">Notable Mentions</div>
-          <div className="card reveal">
-            <p className="hero-subtitle" style={{ marginBottom: "16px" }}>
-              Notable personal milestones (non-official awards).
+        <div className="breadcrumbs">Education</div>
+        <div className="page-intro">
+          <div className="page-hero reveal">
+            <div className="kicker">Education & Leadership</div>
+            <h1 className="hero-title">A strong technical foundation with leadership and builder energy around it.</h1>
+            <p className="hero-subtitle">
+              The education story matters less as a list of credentials and more as evidence of range:
+              technical depth, leadership, and a consistent pattern of taking ownership early.
             </p>
-            <ul className="inline-list">
-              <li>Valedictorian; highest GPA in high school history.</li>
-              <li>Highest SAT and ACT scores in school history.</li>
-              <li>Most selective university admission in high school history.</li>
-              <li>First-generation college student.</li>
-              <li>Completed an associate’s degree before high school diploma.</li>
+          </div>
+          <aside className="card page-side-card reveal">
+            <div className="kicker">Notable Mentions</div>
+            <h2 className="section-title">Milestones that shaped the pace behind the work.</h2>
+            <ul className="inline-list list-chevron">
+              {notableMentions.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
             </ul>
+          </aside>
+        </div>
+
+        <div className="section-tight">
+          <div className="section-heading reveal">
+            <div className="kicker">Academic Foundation</div>
+            <h2 className="section-title">Credentials that support the product and builder side of the story.</h2>
+          </div>
+          <div className="grid-3">
+            {academicBackground.map((item) => (
+              <div className={`card ${item.tone} reveal`} key={item.school}>
+                <div className="kicker">{item.school}</div>
+                <h3 className="section-title">{item.credential}</h3>
+                <p className="card-meta academic-meta">{item.details}</p>
+                <div className="tag-row">
+                  {item.tags.map((tag) => (
+                    <span className="tag" key={tag}>
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 
         <div className="section-tight">
-          <div className="kicker">Northwestern Projects</div>
-          <div className="grid-2" style={{ marginTop: "20px" }}>
-            <div className="card reveal">
-              <div className="kicker">Northwestern University</div>
-              <h3 className="section-title">Rubric’s Cube: AI essay‑editing web app</h3>
-              <p className="hero-subtitle">
-                Built a full-stack app that ingests a rubric and essay (text/PDF), parses criteria,
-                and generates scores with targeted feedback. FastAPI backend integrates with
-                Vertex AI, uses OCR fallbacks with PyMuPDF + pytesseract, and applies regex-based
-                parsing with pytest coverage. Frontend is a Vite SPA with Chakra UI and
-                drag-and-drop uploads.
-              </p>
-              <div className="tag-row">
-                <span className="tag">FastAPI</span>
-                <span className="tag">Vertex AI</span>
-                <span className="tag">OCR</span>
-                <span className="tag">React</span>
+          <div className="section-heading reveal">
+            <div className="kicker">Leadership</div>
+            <h2 className="section-title">Evidence that I lead, mentor, and build trust beyond classwork.</h2>
+          </div>
+          <div className="grid-2">
+            {leadershipRoles.map((role, index) => (
+              <div
+                className={`card ${index === 0 ? "tinted" : "sky"} reveal`}
+                key={`${role.org}-${role.title}`}
+              >
+                <div className="kicker">{role.org}</div>
+                <h3 className="section-title">{role.title}</h3>
+                <div className="work-meta">{role.meta}</div>
+                <ul className="inline-list list-chevron">
+                  {role.bullets.map((bullet) => (
+                    <li key={bullet}>{bullet}</li>
+                  ))}
+                </ul>
               </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="section-tight">
+          <div className="grid-2">
+            <div className="callout sage reveal">
+              <div className="kicker">Why It Matters</div>
+              <h2 className="section-title">The throughline is ownership early.</h2>
+              <p className="hero-subtitle">
+                The combination of technical coursework, leadership roles, and self-directed builds
+                is what shaped the product style you see across the rest of the portfolio: high
+                agency, fast learning, and comfort operating across disciplines.
+              </p>
             </div>
             <div className="card reveal">
-              <div className="kicker">Northwestern University</div>
-              <h3 className="section-title">Uusic: ML music recommender</h3>
+              <div className="kicker">Leadership Pattern</div>
               <p className="hero-subtitle">
-                Developed a recommendation engine using the Million Song Dataset and Last.fm data.
-                Trained a Siamese-style PyTorch model with triplet loss, benchmarked against a
-                KNN baseline, and shipped a Flask app for persona-based recommendations and
-                precision/recall metrics.
+                The story here is not just academic performance. It is a pattern of doing the work,
+                leading peers, and taking on responsibility earlier than expected.
               </p>
-              <div className="tag-row">
-                <span className="tag">PyTorch</span>
-                <span className="tag">Recommender Systems</span>
-                <span className="tag">Flask</span>
-                <span className="tag">Data Engineering</span>
-              </div>
             </div>
-            <div className="card reveal">
-              <div className="kicker">Research Report</div>
-              <h3 className="section-title">YouTube Quality Guard</h3>
-              <p className="hero-subtitle">
-                Built a streaming analysis system using Python automation, FFmpeg, and youtube-dl
-                to compare Free vs. Premium YouTube streams across content types. Engineered a
-                benchmarking pipeline with libvmaf, PSNR, SSIM, and Google’s UVQ to reveal that
-                Premium tiers don’t always outperform Free streams.
-              </p>
-              <div className="tag-row">
-                <span className="tag">Python</span>
-                <span className="tag">FFmpeg</span>
-                <span className="tag">Streaming QA</span>
-                <span className="tag">Data Viz</span>
-              </div>
-            </div>
-            <div className="card reveal">
-              <div className="kicker">WIP · Mobile App</div>
-              <h3 className="section-title">Second Brain</h3>
-              <p className="hero-subtitle">
-                Designing and building a productivity app that automates schedules, wellness
-                breaks, and daily activities into personalized calendar blocks. Managing iOS
-                (TestFlight) and Android (internal Play Store) releases, with a shared C++ scheduling
-                engine, OS-level background tasks, and performance tuning via Instruments and
-                Android Studio.
-              </p>
-              <div className="tag-row">
-                <span className="tag">Swift</span>
-                <span className="tag">Kotlin</span>
-                <span className="tag">C++</span>
-                <span className="tag">Mobile Systems</span>
-              </div>
-            </div>
-            <div className="card reveal">
-              <div className="kicker">Course Project · Computer Science</div>
-              <h3 className="section-title">Agent-Based Wildfire Response Simulation</h3>
-              <p className="hero-subtitle">
-                Built a large-scale agent-based simulation over real GIS terrain (10-meter
-                resolution) modeling fire spread, weather, and firefighter deployment. Implemented
-                distributed agent logic, dynamic weather/fuel models, and ran parameter sweeps that
-                surfaced a critical threshold where scaling resources reduced burn area by ~40%.
-              </p>
-              <div className="tag-row">
-                <span className="tag">Python</span>
-                <span className="tag">ABM</span>
-                <span className="tag">GIS</span>
-                <span className="tag">Simulation</span>
-              </div>
+          </div>
+        </div>
+
+        <div className="section-tight">
+          <div className="callout reveal">
+            <div className="kicker">Projects</div>
+            <h2 className="section-title">Technical builds live on their own page now.</h2>
+            <p className="hero-subtitle">
+              I split projects away from education so the build work reads as a broader part of my
+              profile, not just classwork. That page now includes personal, academic, and
+              self-directed product experiments.
+            </p>
+            <div className="hero-actions">
+              <Link className="button primary" href="/projects">
+                View Projects
+              </Link>
             </div>
           </div>
         </div>

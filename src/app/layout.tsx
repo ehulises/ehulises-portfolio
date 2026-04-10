@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { IBM_Plex_Sans, Space_Grotesk } from "next/font/google";
 import Link from "next/link";
 import RevealProvider from "./components/RevealProvider";
+import SiteNav from "./components/SiteNav";
 import "./globals.css";
 
 const heading = Space_Grotesk({
@@ -34,37 +35,49 @@ export default function RootLayout({
           <RevealProvider />
           <header className="site-header">
             <div className="container header-row">
-              <div className="logo-block">
-                <span className="logo-mark">ER</span>
-                <div>
-                  <div className="logo-name">Ehulises Rodriguez, Jr.</div>
-                  <div className="logo-role">PM (GTM/Analytics) · SWE background</div>
-                </div>
-              </div>
-              <nav className="nav">
-                <Link href="/">Home</Link>
-                <Link href="/work">Work</Link>
-                <Link href="/education">Education</Link>
-                <Link href="/case-studies">Case Studies</Link>
-                <Link href="/resume">Resume</Link>
-                <Link href="/contact" className="nav-cta">
-                  Contact
-                </Link>
-              </nav>
+              <SiteNav />
             </div>
           </header>
           <main className="page">{children}</main>
           <footer className="site-footer">
-            <div className="container footer-row">
-              <div>
-                <div className="footer-title">Let’s build something that ships.</div>
-                <div className="footer-sub">
-                  Houston, Texas · Open to PM (GTM/Analytics) roles · Remote or relocation anywhere
+            <div className="container">
+              <div className="footer-shell reveal">
+                <div className="footer-copy">
+                  <div className="kicker">Let&apos;s Connect</div>
+                  <div className="footer-title">
+                    Product thinking, founder energy, and systems that ship.
+                  </div>
+                  <div className="footer-sub">
+                    Houston, Texas - Open to PM and product-adjacent roles - Remote or relocation
+                    anywhere
+                  </div>
                 </div>
-              </div>
-              <div className="footer-links">
-                <a href="mailto:ehulisesrodriguez@gmail.com">ehulisesrodriguez@gmail.com</a>
-                <a href="https://www.linkedin.com/in/ehulises/">linkedin.com/in/ehulises</a>
+                <div className="footer-meta">
+                  <div className="footer-item">
+                    <div className="footer-label">Email</div>
+                    <a className="footer-link" href="mailto:ehulisesrodriguez@gmail.com">
+                      ehulisesrodriguez@gmail.com
+                    </a>
+                  </div>
+                  <div className="footer-item">
+                    <div className="footer-label">LinkedIn</div>
+                    <a className="footer-link" href="https://www.linkedin.com/in/ehulises/">
+                      linkedin.com/in/ehulises
+                    </a>
+                  </div>
+                  <div className="footer-item">
+                    <div className="footer-label">Resume</div>
+                    <Link className="footer-link" href="/resume">
+                      View resume
+                    </Link>
+                  </div>
+                  <div className="footer-item">
+                    <div className="footer-label">Projects</div>
+                    <Link className="footer-link" href="/projects">
+                      See projects
+                    </Link>
+                  </div>
+                </div>
               </div>
             </div>
           </footer>
