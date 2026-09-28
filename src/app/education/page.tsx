@@ -13,7 +13,7 @@ const degrees = [
     details: "Evanston, IL · 2025 · GPA 3.6/4",
   },
   {
-    school: "Houston Community College",
+    school: "Houston City College",
     credential: "A.S. Science",
     details: "Houston, TX · 2021 · Highest Honors · GPA 3.99/4",
   },
