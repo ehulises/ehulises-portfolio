@@ -1,168 +1,131 @@
-import Link from "next/link";
+import type { Metadata } from "next";
+import PageIntro from "../components/PageIntro";
 
-const academicBackground = [
+export const metadata: Metadata = {
+  title: "Education",
+  description: "B.S. Computer Science, Northwestern University, plus leadership and milestones.",
+};
+
+const degrees = [
   {
     school: "Northwestern University",
     credential: "B.S. Computer Science",
     details: "Evanston, IL · 2025 · GPA 3.6/4",
-    tags: ["Systems", "AI/ML", "Engineering"],
-    tone: "tinted",
   },
   {
     school: "Houston Community College",
     credential: "A.S. Science",
     details: "Houston, TX · 2021 · Highest Honors · GPA 3.99/4",
-    tags: ["STEM", "Honors"],
-    tone: "sky",
   },
   {
-    school: "North Houston Early College HS",
-    credential: "Dual Enrollment",
+    school: "North Houston Early College High School",
+    credential: "Dual enrollment",
     details: "Houston, TX · 2021 · Rank 1 · GPA 4.76/4",
-    tags: ["Leadership", "Valedictorian"],
-    tone: "sage",
   },
 ];
 
-const leadershipRoles = [
+const leadership = [
   {
     org: "Society of Professional Hispanic Engineers",
     title: "Secretary, Mentor",
-    meta: "Sep 2021 - Jun 2025",
+    period: "Sep 2021 – Jun 2025",
     bullets: [
-      "Led mentorship for 8 underrepresented students into internships at top firms.",
+      "Mentored 8 underrepresented students through resumes, interview prep, and applications, leading to internships at Microsoft, Google, Goldman Sachs, and Bloomberg.",
       "Iterated on resume workshops and interview prep based on mentee feedback.",
     ],
   },
   {
     org: "Phi Gamma Delta",
     title: "President, Treasurer",
-    meta: "Mar 2022 - Jun 2025",
+    period: "Mar 2022 – Jun 2025",
     bullets: [
-      "Doubled chapter revenue by redesigning budget strategy and fundraising.",
+      "Led a 50+ member chapter, doubling revenue within a year by redesigning budget strategy and fundraising while stewarding a six-figure annual budget.",
       "Led inclusive community building across 30+ represented backgrounds.",
     ],
   },
 ];
 
-const notableMentions = [
-  "Valedictorian; highest GPA in high school history.",
-  "Highest SAT and ACT scores in school history.",
-  "Most selective university admission in high school history.",
+const milestones = [
   "First-generation college student.",
-  "Completed an associate's degree before high school diploma.",
+  "Completed an associate’s degree before my high school diploma.",
+  "Valedictorian, with the highest GPA in my high school’s history.",
+  "Highest SAT and ACT scores in school history.",
+  "Most selective university admission in school history.",
 ];
 
 export default function Education() {
   return (
-    <section className="section fade-in">
-      <div className="container">
-        <div className="breadcrumbs">Education</div>
-        <div className="page-intro">
-          <div className="page-hero reveal">
-            <div className="kicker">Education & Leadership</div>
-            <h1 className="hero-title">A strong technical foundation with leadership and builder energy around it.</h1>
-            <p className="hero-subtitle">
-              The education story matters less as a list of credentials and more as evidence of range:
-              technical depth, leadership, and a consistent pattern of taking ownership early.
-            </p>
-          </div>
-          <aside className="card page-side-card reveal">
-            <div className="kicker">Notable Mentions</div>
-            <h2 className="section-title">Milestones that shaped the pace behind the work.</h2>
-            <ul className="inline-list list-chevron">
-              {notableMentions.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </aside>
-        </div>
+    <>
+      <PageIntro
+        eyebrow="Education"
+        title="A Computer Science foundation, and a habit of taking ownership early."
+        lede="The credentials matter less than the pattern: technical depth, leadership, and taking on responsibility earlier than expected."
+      />
 
-        <div className="section-tight">
-          <div className="section-heading reveal">
-            <div className="kicker">Academic Foundation</div>
-            <h2 className="section-title">Credentials that support the product and builder side of the story.</h2>
+      <section className="section section--gray" aria-labelledby="degrees-heading">
+        <div className="container">
+          <div className="company-head reveal">
+            <p className="eyebrow">Academic foundation</p>
+            <h2 className="h2" id="degrees-heading">
+              Degrees
+            </h2>
           </div>
-          <div className="grid-3">
-            {academicBackground.map((item) => (
-              <div className={`card ${item.tone} reveal`} key={item.school}>
-                <div className="kicker">{item.school}</div>
-                <h3 className="section-title">{item.credential}</h3>
-                <p className="card-meta academic-meta">{item.details}</p>
-                <div className="tag-row">
-                  {item.tags.map((tag) => (
-                    <span className="tag" key={tag}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
+          <ul className="columns">
+            {degrees.map((degree) => (
+              <li className="column reveal" key={degree.school}>
+                <p className="column__meta">{degree.school}</p>
+                <h3 className="h3">{degree.credential}</h3>
+                <p>{degree.details}</p>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
+      </section>
 
-        <div className="section-tight">
-          <div className="section-heading reveal">
-            <div className="kicker">Leadership</div>
-            <h2 className="section-title">Evidence that I lead, mentor, and build trust beyond classwork.</h2>
+      <section className="section" aria-labelledby="leadership-heading">
+        <div className="container">
+          <div className="company-head reveal">
+            <p className="eyebrow">Beyond the classroom</p>
+            <h2 className="h2" id="leadership-heading">
+              Leadership
+            </h2>
           </div>
-          <div className="grid-2">
-            {leadershipRoles.map((role, index) => (
-              <div
-                className={`card ${index === 0 ? "tinted" : "sky"} reveal`}
-                key={`${role.org}-${role.title}`}
-              >
-                <div className="kicker">{role.org}</div>
-                <h3 className="section-title">{role.title}</h3>
-                <div className="work-meta">{role.meta}</div>
-                <ul className="inline-list list-chevron">
+          {leadership.map((role) => (
+            <article className="role reveal" key={role.org}>
+              <div className="role__aside">
+                <p className="role__period">{role.period}</p>
+              </div>
+              <div className="role__body">
+                <h3 className="h3">
+                  {role.title}
+                  <span className="role__company"> · {role.org}</span>
+                </h3>
+                <ul className="prose-list">
                   {role.bullets.map((bullet) => (
                     <li key={bullet}>{bullet}</li>
                   ))}
                 </ul>
               </div>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="section section--gray" aria-labelledby="milestones-heading">
+        <div className="container split">
+          <div>
+            <p className="eyebrow">Milestones</p>
+            <h2 className="h2" id="milestones-heading">
+              What shaped the pace.
+            </h2>
+          </div>
+          <ul className="prose-list prose-list--large split__body">
+            {milestones.map((item) => (
+              <li key={item}>{item}</li>
             ))}
-          </div>
+          </ul>
         </div>
-
-        <div className="section-tight">
-          <div className="grid-2">
-            <div className="callout sage reveal">
-              <div className="kicker">Why It Matters</div>
-              <h2 className="section-title">The throughline is ownership early.</h2>
-              <p className="hero-subtitle">
-                The combination of technical coursework, leadership roles, and self-directed builds
-                is what shaped the product style you see across the rest of the portfolio: high
-                agency, fast learning, and comfort operating across disciplines.
-              </p>
-            </div>
-            <div className="card reveal">
-              <div className="kicker">Leadership Pattern</div>
-              <p className="hero-subtitle">
-                The story here is not just academic performance. It is a pattern of doing the work,
-                leading peers, and taking on responsibility earlier than expected.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="section-tight">
-          <div className="callout reveal">
-            <div className="kicker">Projects</div>
-            <h2 className="section-title">Technical builds live on their own page now.</h2>
-            <p className="hero-subtitle">
-              I split projects away from education so the build work reads as a broader part of my
-              profile, not just classwork. That page now includes personal, academic, and
-              self-directed product experiments.
-            </p>
-            <div className="hero-actions">
-              <Link className="button primary" href="/projects">
-                View Projects
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

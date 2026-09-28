@@ -1,119 +1,79 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+import PageIntro from "../components/PageIntro";
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description: "Personal, academic, and self-directed builds across AI, data, mobile, and simulation.",
+};
 
 const projects = [
   {
-    kicker: "AI / Writing Tool",
-    title: "Rubric's Cube",
-    body:
-      "Built a full-stack app that ingests a rubric and essay (text/PDF), parses criteria, and generates scores with targeted feedback. FastAPI backend integrates with Vertex AI, uses OCR fallbacks with PyMuPDF + pytesseract, and applies regex-based parsing with pytest coverage. Frontend is a Vite SPA with Chakra UI and drag-and-drop uploads.",
-    tags: ["FastAPI", "Vertex AI", "OCR", "React"],
-    tone: "tinted",
+    kind: "AI writing tool",
+    title: "Rubric’s Cube",
+    body: "A full-stack app that ingests a rubric and an essay (text or PDF), parses the criteria, and generates scores with targeted feedback. A FastAPI backend integrates with Vertex AI, falls back to OCR with PyMuPDF and pytesseract, and uses regex-based parsing with pytest coverage. The front end is a Vite SPA with Chakra UI and drag-and-drop uploads.",
+    stack: "FastAPI · Vertex AI · OCR · React",
   },
   {
-    kicker: "Trading Tool",
+    kind: "Trading tool",
     title: "Trading Signal Workspace",
-    body:
-      "Built a decision-support tool for equities and options workflows that ingests market data, scores setups against a risk checklist, and surfaces watchlist candidates with price, volume, and momentum context. Combined Python data pipelines, backtesting notebooks, and a lightweight interface for journaling trades and reviewing execution after the close.",
-    tags: ["Python", "Market Data", "Backtesting", "React Dashboard"],
-    tone: "sky",
+    body: "A decision-support tool for equities and options that ingests market data, scores setups against a risk checklist, and surfaces watchlist candidates with price, volume, and momentum context. Python data pipelines, backtesting notebooks, and a lightweight interface for journaling trades and reviewing execution after the close.",
+    stack: "Python · Market data · Backtesting · React",
   },
   {
-    kicker: "ML Recommender",
+    kind: "ML recommender",
     title: "Uusic",
-    body:
-      "Developed a recommendation engine using the Million Song Dataset and Last.fm data. Trained a Siamese-style PyTorch model with triplet loss, benchmarked against a KNN baseline, and shipped a Flask app for persona-based recommendations and precision and recall metrics.",
-    tags: ["PyTorch", "Recommender Systems", "Flask", "Data Engineering"],
-    tone: "sage",
+    body: "A recommendation engine built on the Million Song Dataset and Last.fm data. A Siamese-style PyTorch model trained with triplet loss, benchmarked against a KNN baseline, and shipped as a Flask app with persona-based recommendations and precision and recall metrics.",
+    stack: "PyTorch · Recommender systems · Flask",
   },
   {
-    kicker: "Streaming Analysis",
+    kind: "Streaming analysis",
     title: "YouTube Quality Guard",
-    body:
-      "Built a streaming analysis system using Python automation, FFmpeg, and youtube-dl to compare Free vs. Premium YouTube streams across content types. Engineered a benchmarking pipeline with libvmaf, PSNR, SSIM, and Google's UVQ to reveal that Premium tiers do not always outperform Free streams.",
-    tags: ["Python", "FFmpeg", "Streaming QA", "Data Viz"],
-    tone: "sun",
+    body: "A streaming analysis system using Python automation, FFmpeg, and youtube-dl to compare Free and Premium YouTube streams across content types. A benchmarking pipeline with libvmaf, PSNR, SSIM, and Google’s UVQ showed that Premium tiers don’t always outperform Free.",
+    stack: "Python · FFmpeg · Streaming QA · Data viz",
   },
   {
-    kicker: "Mobile Systems",
+    kind: "Mobile systems",
     title: "Second Brain",
-    body:
-      "Designing and building a productivity app that automates schedules, wellness breaks, and daily activities into personalized calendar blocks. Managing iOS (TestFlight) and Android (internal Play Store) releases, with a shared C++ scheduling engine, OS-level background tasks, and performance tuning via Instruments and Android Studio.",
-    tags: ["Swift", "Kotlin", "C++", "Mobile Systems"],
-    tone: "tinted",
+    body: "A productivity app that turns schedules, wellness breaks, and daily activities into personalized calendar blocks. iOS (TestFlight) and Android (internal Play Store) releases share a C++ scheduling engine, with OS-level background tasks and performance tuning in Instruments and Android Studio.",
+    stack: "Swift · Kotlin · C++",
   },
   {
-    kicker: "Simulation System",
+    kind: "Simulation",
     title: "Agent-Based Wildfire Response Simulation",
-    body:
-      "Built a large-scale agent-based simulation over real GIS terrain (10-meter resolution) modeling fire spread, weather, and firefighter deployment. Implemented distributed agent logic, dynamic weather and fuel models, and ran parameter sweeps that surfaced a critical threshold where scaling resources reduced burn area by roughly 40%.",
-    tags: ["Python", "ABM", "GIS", "Simulation"],
-    tone: "sky",
+    body: "A large-scale agent-based simulation over real 10-meter GIS terrain, modeling fire spread, weather, and firefighter deployment. Parameter sweeps surfaced a critical threshold where scaling resources reduced burn area by roughly 40%.",
+    stack: "Python · Agent-based modeling · GIS",
   },
 ];
 
 export default function Projects() {
   return (
-    <section className="section fade-in">
-      <div className="container">
-        <div className="breadcrumbs">Projects</div>
-        <div className="page-intro">
-          <div className="page-hero reveal">
-            <div className="kicker">Projects</div>
-            <h1 className="hero-title">Technical builds that show how I think and make things real.</h1>
-            <p className="hero-subtitle">
-              A mix of personal, academic, and self-directed projects across AI, data, mobile,
-              simulation, and market tools. The common thread is building systems that turn messy
-              inputs into clearer decisions.
-            </p>
-          </div>
-          <aside className="card page-side-card reveal">
-            <div className="kicker">Most Comfortable With</div>
-            <h2 className="section-title">Tools I tend to reach for fastest.</h2>
-            <div className="tag-row">
-              <span className="tag">Python</span>
-              <span className="tag">SQL</span>
-              <span className="tag">Power BI</span>
-              <span className="tag">Tableau</span>
-              <span className="tag">React</span>
-              <span className="tag">FastAPI</span>
-            </div>
-          </aside>
+    <>
+      <PageIntro
+        eyebrow="Projects"
+        title="Things I built to understand a problem properly."
+        lede="Personal, academic, and self-directed builds across AI, data, mobile, simulation, and markets. They’re where product curiosity and hands-on engineering overlap."
+      />
+      <section className="section section--top-rule" aria-label="Projects">
+        <div className="container">
+          <ul className="project-grid">
+            {projects.map((project) => (
+              <li className="project reveal" key={project.title}>
+                <p className="eyebrow">{project.kind}</p>
+                <h2 className="h3">{project.title}</h2>
+                <p>{project.body}</p>
+                <p className="project__stack">{project.stack}</p>
+              </li>
+            ))}
+          </ul>
+          <p className="section-foot">
+            Most comfortable with Python, SQL, React, TypeScript, and PostgreSQL.{" "}
+            <Link className="link-arrow" href="/contact">
+              Ask me about a project
+            </Link>
+          </p>
         </div>
-
-        <div className="grid-2">
-          {projects.map((project) => (
-            <div className={`card ${project.tone} reveal`} key={project.title}>
-              <div className="kicker">{project.kicker}</div>
-              <h2 className="section-title">{project.title}</h2>
-              <p className="hero-subtitle">{project.body}</p>
-              <div className="tag-row">
-                {project.tags.map((tag) => (
-                  <span className="tag" key={tag}>
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="section-tight">
-          <div className="callout reveal">
-            <div className="kicker">Why These Matter</div>
-            <h2 className="section-title">They show builder depth, not just technical familiarity.</h2>
-            <p className="hero-subtitle">
-              These projects are where product thinking, experimentation, and technical execution
-              overlap the most for me. They are often the fastest way to understand how I approach
-              systems, ambiguity, and iteration.
-            </p>
-            <div className="hero-actions">
-              <Link className="button primary" href="/contact">
-                Ask Me About a Project
-              </Link>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }

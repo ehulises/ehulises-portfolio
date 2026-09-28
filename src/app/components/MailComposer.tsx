@@ -13,12 +13,9 @@ export default function MailComposer() {
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const lines = [
-      name ? `Name: ${name}` : "",
-      email ? `Email: ${email}` : "",
-      "",
-      message,
-    ].filter(Boolean);
+    const lines = [name ? `Name: ${name}` : "", email ? `Email: ${email}` : "", "", message].filter(
+      Boolean
+    );
 
     const mailto = `mailto:${emailTarget}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(lines.join("\n"))}`;
 
@@ -26,43 +23,48 @@ export default function MailComposer() {
   };
 
   return (
-    <form className="mail-widget reveal" onSubmit={onSubmit}>
-      <div className="kicker">Send an Email</div>
-      <h2 className="section-title">Write from the site, send from your email app.</h2>
-      <p className="hero-subtitle">
-        This opens your default mail app with everything prefilled, so it works without a backend.
-      </p>
-      <div className="mail-grid">
-        <label className="mail-field">
+    <form className="mail-form" onSubmit={onSubmit} aria-labelledby="mail-form-title">
+      <h2 className="h3" id="mail-form-title">
+        Write a message
+      </h2>
+      <p className="mail-form__hint">Opens your email app with everything filled in.</p>
+      <div className="mail-form__row">
+        <label className="field">
           <span>Name</span>
-          <input value={name} onChange={(event) => setName(event.target.value)} type="text" />
+          <input
+            value={name}
+            onChange={(event) => setName(event.target.value)}
+            type="text"
+            autoComplete="name"
+          />
         </label>
-        <label className="mail-field">
+        <label className="field">
           <span>Email</span>
           <input
             value={email}
             onChange={(event) => setEmail(event.target.value)}
             type="email"
-            placeholder="your@email.com"
+            autoComplete="email"
+            placeholder="you@company.com"
           />
         </label>
       </div>
-      <label className="mail-field">
+      <label className="field">
         <span>Subject</span>
         <input value={subject} onChange={(event) => setSubject(event.target.value)} type="text" />
       </label>
-      <label className="mail-field">
+      <label className="field">
         <span>Message</span>
         <textarea
           value={message}
           onChange={(event) => setMessage(event.target.value)}
           rows={6}
-          placeholder="Hi Ehulises, I wanted to reach out about..."
+          placeholder="Hi Ehulises, I wanted to reach out about…"
         />
       </label>
-      <div className="hero-actions">
-        <button className="button primary" type="submit">
-          Open Email Draft
+      <div>
+        <button className="btn btn--primary" type="submit">
+          Open email draft
         </button>
       </div>
     </form>

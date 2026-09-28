@@ -3,11 +3,13 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 
+// Adds `is-visible` to `.reveal` elements as they scroll into view. The hidden
+// starting state only applies when scripting is on and motion is allowed (see globals.css).
 export default function RevealProvider() {
   const pathname = usePathname();
 
   useEffect(() => {
-    const elements = Array.from(document.querySelectorAll<HTMLElement>(".reveal"));
+    const elements = Array.from(document.querySelectorAll<HTMLElement>(".reveal:not(.is-visible)"));
     if (!elements.length) return;
 
     if (typeof IntersectionObserver === "undefined") {
@@ -24,19 +26,12 @@ export default function RevealProvider() {
           }
         });
       },
-      { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
+      { threshold: 0.12, rootMargin: "0px 0px -6% 0px" }
     );
 
     elements.forEach((el) => observer.observe(el));
 
-    const fallback = window.setTimeout(() => {
-      elements.forEach((el) => el.classList.add("is-visible"));
-    }, 1500);
-
-    return () => {
-      window.clearTimeout(fallback);
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, [pathname]);
 
   return null;

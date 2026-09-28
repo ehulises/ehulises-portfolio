@@ -1,63 +1,45 @@
-import Link from "next/link";
+import type { Metadata } from "next";
+import CaseStudyList from "../components/CaseStudyList";
+import PageIntro from "../components/PageIntro";
 import { caseStudies } from "../data/caseStudies";
+
+export const metadata: Metadata = {
+  title: "Case Studies",
+  description:
+    "How I frame problems, make product decisions, and ship: WRTH, Microsoft, and SLAD case studies.",
+};
+
+const groups = [
+  { id: "wrth", label: "WRTH", note: "Current work", company: "WRTH" },
+  { id: "microsoft", label: "Microsoft", note: "2022 – 2024", company: "Microsoft" },
+  { id: "slad", label: "SLAD LLC", note: "Founder", company: "SLAD LLC" },
+];
 
 export default function CaseStudies() {
   return (
-    <section className="section fade-in">
-      <div className="container">
-        <div className="breadcrumbs">Case Studies</div>
-        <div className="page-intro">
-          <div className="page-hero reveal">
-            <div className="kicker">Case Studies</div>
-            <h1 className="hero-title">How I frame problems, align teams, and ship outcomes.</h1>
-            <p className="hero-subtitle">
-              These are the deeper reads behind the resume bullets - a closer look at product
-              thinking, stakeholder alignment, GTM experimentation, and operating systems that
-              improve how teams move.
-            </p>
+    <>
+      <PageIntro
+        eyebrow="Case studies"
+        title="The thinking behind the outcomes."
+        lede="Each one covers the problem, the people it served, the decisions and tradeoffs I made, how it shipped, and what I learned."
+      />
+      {groups.map((group, index) => (
+        <section
+          key={group.id}
+          className={index % 2 === 0 ? "section section--gray" : "section"}
+          aria-labelledby={`${group.id}-heading`}
+        >
+          <div className="container">
+            <div className="company-head reveal">
+              <p className="eyebrow">{group.note}</p>
+              <h2 className="h2" id={`${group.id}-heading`}>
+                {group.label}
+              </h2>
+            </div>
+            <CaseStudyList studies={caseStudies.filter((study) => study.company === group.company)} />
           </div>
-          <aside className="card page-side-card reveal">
-            <div className="kicker">What They Show</div>
-            <ul className="inline-list list-chevron">
-              <li>Product management and prioritization</li>
-              <li>Cross-functional alignment</li>
-              <li>GTM and experimentation thinking</li>
-              <li>Systems design and operational clarity</li>
-            </ul>
-          </aside>
-        </div>
-
-        <div className="grid-2">
-          {caseStudies.map((study) => (
-            <Link
-              key={study.slug}
-              className="case-link reveal"
-              href={`/case-studies/${study.slug}`}
-            >
-              <div className="case-block">
-                <div className="case-meta">
-                  <div className="kicker">
-                    {study.company} - {study.timeline}
-                  </div>
-                  <span className="case-metric">{study.metrics[0]}</span>
-                </div>
-                <h2 className="section-title">{study.title}</h2>
-                <p className="hero-subtitle">{study.summary}</p>
-                <div className="tag-row">
-                  {study.tags.map((tag) => (
-                    <span className="tag" key={tag}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <div>
-                  <span className="case-link-cta">Read case study</span>
-                </div>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </section>
+        </section>
+      ))}
+    </>
   );
 }

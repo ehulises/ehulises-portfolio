@@ -1,268 +1,272 @@
 import Link from "next/link";
-import FunFactReveal from "./components/FunFactReveal";
-import StatShuffle from "./components/StatShuffle";
+import CaseStudyList from "./components/CaseStudyList";
+import StatRow from "./components/StatRow";
+import { caseStudies } from "./data/caseStudies";
+import { microsoftRoles, slad, wrth, wrthProductLines } from "./data/experience";
 
-const heroStats = [
-  { value: "60 hrs/mo", label: "Engineering time saved with Microsoft rollout systems" },
-  { value: "113%", label: "Follower growth driven through founder-led experimentation" },
-  { value: "92%", label: "Verification accuracy after hands-on product iteration" },
-  { value: "4,000+", label: "Community members built around a culture-led brand" },
+const proof = [
+  { value: "0 → 1", label: "WRTH Store/POS, from problem definition to first live transaction" },
+  { value: "60 hrs/mo", label: "Manual engineering work removed by a self-serve rollout product at Microsoft" },
+  { value: "147%", label: "Quarter-over-quarter growth in website sessions at SLAD" },
+  { value: "76% → 92%", label: "Document-verification accuracy after user testing at Microsoft" },
 ];
 
-const highlightCards = [
-  {
-    kicker: "Product Systems",
-    title: "Ambiguous problems become usable systems.",
-    body:
-      "I like turning messy workflows, stakeholder complexity, and scattered feedback into something a team can actually operate against.",
-    tone: "tinted",
-  },
-  {
-    kicker: "GTM + Analytics",
-    title: "Data gets translated into clear action.",
-    body:
-      "Dashboards, experiments, KPIs, and operating rituals are part of how I help teams move from activity to signal.",
-    tone: "sky",
-  },
-  {
-    kicker: "Builder Range",
-    title: "I can bridge strategy and execution.",
-    body:
-      "A SWE background helps me stay close to the product details, speak engineering fluently, and move ideas toward shipping faster.",
-    tone: "sage",
-  },
+const wrthStats = [
+  { value: "8", label: "Post-sale fixes within ~24 hours of the first live sale" },
+  { value: "~1,505", label: "Inventory items made sellable by a pricing-readiness change" },
+  { value: "28", label: "UX wireframes behind the live-commerce spec" },
 ];
 
-const featuredStudies = [
+const selectedSlugs = [
+  "wrth-merchant-commerce-platform",
+  "wrth-event-commerce",
+  "self-serve-rollout-policy",
+  "slad-growth-system",
+];
+
+const principles = [
   {
-    href: "/case-studies/self-serve-rollout-policy",
-    company: "Microsoft",
-    title: "Self-serve rollout policy tool",
-    body:
-      "Defined the charter, aligned stakeholders, and designed a policy system that cut manual governance overhead.",
-    tags: ["Product Strategy", "Research", "Workflow"],
-    metric: "60 hrs/mo saved",
+    title: "Define",
+    body: "Turn ambiguous goals into problem statements, personas, product requirements, and acceptance criteria a team can build and test against.",
   },
   {
-    href: "/case-studies/slad-growth-system",
-    company: "SLAD LLC",
-    title: "Growth system for a founder-led brand",
-    body:
-      "Built a feedback loop across analytics, creative testing, and launches to grow traffic, engagement, and community.",
-    tags: ["GTM", "Analytics", "Brand"],
-    metric: "147% QoQ sessions",
+    title: "Decide",
+    body: "Make scope, workflow, monetization, fee, and launch-readiness calls, with the technical tradeoffs visible rather than hidden behind a handoff.",
+  },
+  {
+    title: "Deliver",
+    body: "Stay through tickets, QA plans, release decisions, and the stabilization work after launch, when real users find what testing missed.",
   },
 ];
 
-const capabilities = [
+const stack = [
   {
-    kicker: "Product Discovery",
-    body: "Interviews, PRDs, personas, journeys, and requirement synthesis that keep teams aligned.",
-    tags: ["User Research", "JTBD", "PRDs"],
-    tone: "tinted",
+    label: "Product and platform",
+    items:
+      "Next.js, React, TypeScript, PostgreSQL, Supabase, Stripe, Stripe Connect, Stripe Terminal, Edge Functions, row-level security, multi-tenant authorization, REST APIs, migrations, CI/CD, Netlify",
   },
   {
-    kicker: "Experimentation",
-    body: "A/B testing, KPI definition, cohort analysis, and rollout validation with a bias for measurable learning.",
-    tags: ["Metrics", "A/B Tests", "Cohorts"],
-    tone: "sky",
+    label: "Product practice",
+    items:
+      "Discovery, user research, PRDs, roadmaps, OKRs, user journeys, acceptance criteria, QA plans, experimentation, A/B testing, launch readiness",
   },
   {
-    kicker: "Analytics",
-    body: "SQL, dashboards, and instrumentation that help teams make faster and cleaner decisions.",
-    tags: ["SQL", "Power BI", "Tableau", "Python"],
-    tone: "sage",
-  },
-  {
-    kicker: "Systems + Build",
-    body: "Prototyping, automation, and cross-platform shipping across web, backend, and mobile surfaces.",
-    tags: ["React", "FastAPI", "Swift", "C++", "Docker"],
-    tone: "sun",
+    label: "Data and other builds",
+    items: "SQL, Python, Power BI, Tableau, FastAPI, Swift, Kotlin, C++, Java, PyTorch, Docker",
   },
 ];
 
 const funFacts = [
-  { emoji: "🌎", label: "Road Trips", fact: "Drove from Canada to Mexico" },
-  { emoji: "🛣️", label: "Long Drives", fact: "Road-tripped through 30+ U.S. states" },
-  { emoji: "🏋️", label: "Lifting", fact: "495 lb deadlift and 315 lb bench at 200 lb bodyweight" },
-  { emoji: "🛠️", label: "Hands-On", fact: "Worked as a mechanic for 3 years" },
-  { emoji: "🎧", label: "Side Hustles", fact: "Started a DJ business in college" },
-  { emoji: "🏛️", label: "Random Skill", fact: "Can identify every country flag" },
+  { label: "Road trips", fact: "Drove from Canada to Mexico." },
+  { label: "Long drives", fact: "Road-tripped through 30+ U.S. states." },
+  { label: "Lifting", fact: "495 lb deadlift and 315 lb bench at 200 lb bodyweight." },
+  { label: "Hands-on", fact: "Worked as a mechanic for 3 years." },
+  { label: "Side hustles", fact: "Started a DJ business in college." },
+  { label: "Random skill", fact: "Can identify every country’s flag." },
 ];
 
 export default function Home() {
+  const selected = selectedSlugs
+    .map((slug) => caseStudies.find((study) => study.slug === slug))
+    .filter((study) => study !== undefined);
+
   return (
-    <div className="fade-in">
-      <section className="section">
+    <>
+      <section className="hero container intro" aria-labelledby="hero-title">
+        <p className="hero__name">Ehulises Rodriguez, Jr.</p>
+        <h1 className="display" id="hero-title">
+          Product leader with technical depth.{" "}
+          <span className="display__muted">I take systems from ambiguity to production.</span>
+        </h1>
+        <p className="lede hero__lede">
+          Lead Engineering Manager at WRTH, where I took merchant commerce from problem definition
+          to its first live transaction. Previously Product Manager at Microsoft, founder of SLAD,
+          and a Northwestern Computer Science graduate.
+        </p>
+        <div className="actions">
+          <Link className="btn btn--primary" href="/case-studies/wrth-merchant-commerce-platform">
+            Read the WRTH case study
+          </Link>
+          <Link className="btn btn--secondary" href="/work">
+            View experience
+          </Link>
+          <Link className="link-arrow" href="/resume">
+            Resume
+          </Link>
+        </div>
+      </section>
+
+      <section className="container section--flush" aria-label="Selected results">
+        <StatRow stats={proof} className="reveal" />
+      </section>
+
+      <section className="section section--gray" aria-labelledby="wrth-title">
         <div className="container">
-          <div className="breadcrumbs">Portfolio</div>
-          <div className="hero">
-            <div className="hero-main reveal">
-              <div className="kicker">Product Portfolio</div>
-              <div className="hero-name">Ehulises Rodriguez, Jr.</div>
-              <h1 className="hero-title">Product manager with founder range and a builder&apos;s instinct.</h1>
-              <p className="hero-subtitle">
-                I turn ambiguous problems into structured systems across product strategy, GTM,
-                analytics, and technical execution. I&apos;ve shipped at Microsoft, built growth
-                engines as a founder, and stay close enough to the details to help teams move from
-                insight to rollout.
+          <div className="split reveal">
+            <div>
+              <p className="eyebrow">
+                Now · {wrth.company} · {wrth.period}
               </p>
-              <div className="hero-actions">
-                <Link className="button primary" href="/work">
-                  View Work
-                </Link>
-                <Link className="button" href="/case-studies">
-                  Case Studies
-                </Link>
-                <Link className="button" href="/resume">
-                  Resume PDF
-                </Link>
-              </div>
-              <div className="tag-row">
-                <span className="tag">Microsoft PM</span>
-                <span className="tag">Founder</span>
-                <span className="tag">GTM + Analytics</span>
-                <span className="tag">SWE Background</span>
-              </div>
+              <h2 className="h2" id="wrth-title">
+                Building a merchant and event commerce platform, end to end.
+              </h2>
             </div>
-            <div className="hero-side reveal">
-              <div className="card tinted hero-card">
-                <div className="kicker">Quick Read</div>
-                <h2 className="section-title">Breadth that shows up as leverage.</h2>
-                <ul className="inline-list list-chevron">
-                  <li>Best fit for PM roles that blend product strategy, GTM, analytics, and execution.</li>
-                  <li>Comfortable translating between engineering, business goals, and user needs.</li>
-                  <li>Strongest in environments that need structure, momentum, and ownership quickly.</li>
-                </ul>
-              </div>
-              <div className="card sky hero-card">
-                <div className="kicker">Currently</div>
-                <p className="hero-subtitle">
-                  Houston, TX. Open to PM (GTM/Analytics) roles, remote work, or relocation.
-                  Looking for teams where I can own a problem end to end and help the group move
-                  faster.
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="proof-strip">
-            {heroStats.map((stat) => (
-              <div className="proof-chip reveal" key={stat.label}>
-                <StatShuffle className="proof-value" value={stat.value} />
-                <div className="proof-label">{stat.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section-tight">
-        <div className="container">
-          <div className="section-heading reveal">
-            <div className="kicker">Why My Background Works</div>
-            <h2 className="section-title">
-              Enterprise polish, founder urgency, and enough technical range to connect the dots.
-            </h2>
-            <p className="section-lede">
-              The throughline across my work is creating clarity, aligning people quickly, and
-              building systems that make teams faster and more effective.
-            </p>
-          </div>
-          <div className="metric-grid">
-            {highlightCards.map((item) => (
-              <div className={`card ${item.tone} metric-card reveal`} key={item.title}>
-                <div className="kicker">{item.kicker}</div>
-                <h3 className="section-title">{item.title}</h3>
-                <p className="hero-subtitle">{item.body}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <div className="section-heading reveal">
-            <div className="kicker">Capabilities</div>
-            <h2 className="section-title">Product, analytics, and execution range</h2>
-            <p className="section-lede">
-              Enough breadth to operate cross-functionally, but still grounded in the details that
-              make product work credible.
-            </p>
-          </div>
-          <div className="grid-2">
-            {capabilities.map((capability) => (
-              <div className={`card ${capability.tone} reveal`} key={capability.kicker}>
-                <div className="kicker">{capability.kicker}</div>
-                <p className="hero-subtitle">{capability.body}</p>
-                <div className="tag-row">
-                  {capability.tags.map((tag) => (
-                    <span className="tag" key={tag}>
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="section">
-        <div className="container">
-          <div className="section-heading reveal">
-            <div className="kicker">Selected Work</div>
-            <h2 className="section-title">Featured case studies</h2>
-            <p className="section-lede">
-              A closer look at how I frame problems, align teams, and turn research, GTM, and
-              systems thinking into outcomes.
-            </p>
-          </div>
-          <div className="grid-2">
-            {featuredStudies.map((study) => (
-              <Link key={study.href} className="case-link reveal" href={study.href}>
-                <div className="case-block">
-                  <div className="case-meta">
-                    <div className="kicker">{study.company}</div>
-                    <span className="case-metric">{study.metric}</span>
-                  </div>
-                  <h3 className="section-title">{study.title}</h3>
-                  <p className="hero-subtitle">{study.body}</p>
-                  <div className="tag-row">
-                    {study.tags.map((tag) => (
-                      <span className="tag" key={tag}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <div>
-                    <span className="case-link-cta">Read case study</span>
-                  </div>
-                </div>
+            <div className="split__body">
+              <p className="lede">
+                WRTH is a startup consolidating merchant and event commerce into one platform. As{" "}
+                {wrth.role}, I work across product definition, engineering, payments, inventory,
+                AI/data, security, QA, and release execution.
+              </p>
+              <Link className="link-arrow" href="/case-studies/wrth-merchant-commerce-platform">
+                How the Store/POS went from 0 to 1
               </Link>
-            ))}
+            </div>
           </div>
-          <div className="section-actions">
-            <Link className="button" href="/case-studies">
-              Explore all case studies
+
+          <StatRow stats={wrthStats} className="stat-row--compact reveal" />
+
+          <ul className="product-lines">
+            {wrthProductLines.map((line) => (
+              <li className="product-line reveal" key={line.name}>
+                <h3 className="h3">{line.name}</h3>
+                <p>{line.body}</p>
+                {line.href ? (
+                  <Link className="link-arrow" href={line.href}>
+                    Case study
+                    <span className="sr-only">: {line.name}</span>
+                  </Link>
+                ) : null}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="selected-title">
+        <div className="container">
+          <div className="section-head reveal">
+            <p className="eyebrow">Selected work</p>
+            <h2 className="h2" id="selected-title">
+              Problems, decisions, and what shipped.
+            </h2>
+          </div>
+          <CaseStudyList studies={selected} />
+          <div className="section-foot">
+            <Link className="link-arrow" href="/case-studies">
+              All case studies
             </Link>
           </div>
         </div>
       </section>
 
-      <section className="section-tight">
+      <section className="section section--gray" aria-labelledby="microsoft-title">
         <div className="container">
-          <div className="card reveal fun-facts-panel">
-            <div className="kicker">Me Outside of Work</div>
-            <h2 className="section-title">Fun facts about me</h2>
-            <p className="hero-subtitle">
-              A few quick things that make the rest of the portfolio feel a little more personal.
+          <div className="split reveal">
+            <div>
+              <p className="eyebrow">Microsoft · 2022 – 2024</p>
+              <h2 className="h2" id="microsoft-title">
+                Three summers. Three product problems.
+              </h2>
+            </div>
+            <p className="lede split__body">
+              Two Product Manager roles and an engineering-plus-product role, each owning a problem
+              from research and specification through delivery.
             </p>
-            <FunFactReveal facts={funFacts} />
           </div>
+          <ol className="columns">
+            {microsoftRoles.map((role) => (
+              <li className="column reveal" key={role.period}>
+                <p className="column__meta">{role.period}</p>
+                <h3 className="h3">{role.summary}</h3>
+                <p className="column__role">{role.role}</p>
+                <p>{role.headline}</p>
+                {role.caseStudy ? (
+                  <Link className="link-arrow" href={`/case-studies/${role.caseStudy}`}>
+                    Case study
+                    <span className="sr-only">: {role.summary}</span>
+                  </Link>
+                ) : null}
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
-    </div>
+
+      <section className="section" aria-labelledby="slad-title">
+        <div className="container">
+          <div className="split reveal">
+            <div>
+              <p className="eyebrow">
+                {slad.company} · Founder · 2023 – 2026
+              </p>
+              <h2 className="h2" id="slad-title">
+                Running a real business, not just shipping software.
+              </h2>
+            </div>
+            <div className="split__body">
+              <p className="lede">{slad.summary}</p>
+              <Link className="link-arrow" href={`/case-studies/${slad.caseStudy}`}>
+                The growth system behind it
+              </Link>
+            </div>
+          </div>
+          <StatRow
+            className="stat-row--compact reveal"
+            stats={[
+              { value: "807K+", label: "Impressions" },
+              { value: "113%", label: "Instagram follower growth" },
+              { value: "147%", label: "QoQ growth in website sessions" },
+            ]}
+          />
+        </div>
+      </section>
+
+      <section className="section section--gray" aria-labelledby="how-title">
+        <div className="container">
+          <div className="section-head reveal">
+            <p className="eyebrow">How I work</p>
+            <h2 className="h2" id="how-title">
+              Product judgment, with an engineer’s grasp of how it gets built.
+            </h2>
+          </div>
+          <ol className="columns">
+            {principles.map((item, index) => (
+              <li className="column reveal" key={item.title}>
+                <p className="column__meta">{String(index + 1).padStart(2, "0")}</p>
+                <h3 className="h3">{item.title}</h3>
+                <p>{item.body}</p>
+              </li>
+            ))}
+          </ol>
+          <dl className="stack reveal">
+            {stack.map((group) => (
+              <div className="stack__row" key={group.label}>
+                <dt>{group.label}</dt>
+                <dd>{group.items}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+
+      <section className="section" aria-labelledby="personal-title">
+        <div className="container">
+          <div className="section-head reveal">
+            <p className="eyebrow">Outside of work</p>
+            <h2 className="h2" id="personal-title">
+              A few things that don’t fit on a resume.
+            </h2>
+          </div>
+          <dl className="facts">
+            {funFacts.map((item) => (
+              <div className="facts__item reveal" key={item.label}>
+                <dt>{item.label}</dt>
+                <dd>{item.fact}</dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      </section>
+    </>
   );
 }
