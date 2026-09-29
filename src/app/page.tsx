@@ -12,9 +12,20 @@ const proof = [
 ];
 
 const wrthStats = [
-  { value: "8", label: "Post-sale fixes within ~24 hours of the first live sale" },
-  { value: "~1,505", label: "Inventory items made sellable by a pricing-readiness change" },
-  { value: "28", label: "UX wireframes behind the live-commerce spec" },
+  {
+    value: "2",
+    label:
+      "Commerce systems taken end to end: Store/POS through its first live transaction, and Event commerce through a successful terminal payment in development",
+  },
+  {
+    value: "5",
+    label: "Product lines aligned across founders, engineering, and GTM around shared launch priorities",
+  },
+  {
+    value: "Cleared",
+    label:
+      "Tap-to-authenticate commerce, cleared for launch through WRTH’s NFC authentication architecture and patent non-infringement analysis",
+  },
 ];
 
 const selectedSlugs = [
@@ -123,7 +134,7 @@ export default function Home() {
             </div>
           </div>
 
-          <StatRow stats={wrthStats} className="stat-row--compact reveal" />
+          <StatRow stats={wrthStats} className="stat-row--compact stat-row--wide reveal" />
 
           <ul className="product-lines">
             {wrthProductLines.map((line) => (

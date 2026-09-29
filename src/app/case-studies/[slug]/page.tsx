@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import CaseStudyBlocks from "@/app/components/CaseStudyBlocks";
+import CaseStudyToc from "@/app/components/CaseStudyToc";
 import StatRow from "@/app/components/StatRow";
 import { caseStudies, caseStudyBySlug } from "@/app/data/caseStudies";
 
@@ -57,16 +58,7 @@ export default async function CaseStudyPage({ params }: PageProps) {
       </section>
 
       <div className="container cs-layout">
-        <nav className="cs-toc" aria-label="In this case study">
-          <p className="cs-toc__title">In this case study</p>
-          <ol>
-            {study.sections.map((section) => (
-              <li key={section.id}>
-                <a href={`#${section.id}`}>{section.label}</a>
-              </li>
-            ))}
-          </ol>
-        </nav>
+        <CaseStudyToc sections={study.sections.map(({ id, label }) => ({ id, label }))} />
 
         <div className="cs-body">
           {study.sections.map((section, sectionIndex) => (
